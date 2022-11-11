@@ -23,7 +23,8 @@
         <nav id="character-nav">
             <ul class="characters">
                 <!-- hero thumb component goes here -->
-                <herothumbnail v-for="hero in heroData"></herothumbnail>
+                <theherothumb @loadlbdata="loadLightbox" v-for="hero in heroData" :hero="hero"></theherothumb> <!-- represents TheHeroThumbnauil.js -->
+
             </ul>
         </nav>
 
@@ -31,6 +32,13 @@
             <h3>Choose Your Hero!</h3>
             <p>Use your mouse to hover / click to discover more about each Marvel character</p>
         </article>
+
+        <!-- custom lightbox component here -->
+        <thelightbox 
+        @closelb="this.showLB = false" 
+        v-if="showLB" 
+        :item="lbData"></thelightbox>
+        <!-- end lightbox -->
     </main>
     <!-- make this a sticky footer so it's always at the bottom-->
     <footer class="sticky_footer">

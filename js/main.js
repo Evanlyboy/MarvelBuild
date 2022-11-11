@@ -1,5 +1,6 @@
-// import components first
-import ImportHeroThumbnail from './components/TheHeroThumbnail.js';
+// import components
+import HeroThumb from './components/TheHeroThumbnail.js';
+import LightBox from './components/TheLightbox.js';
 
 (() => {
     // create vue instance here
@@ -7,22 +8,35 @@ import ImportHeroThumbnail from './components/TheHeroThumbnail.js';
 
     createApp({
         created() {
-            // always get your remote data here
-            fetch('./data.json')
+            // ALWAYS get your remote data here
+            fetch(`./data.json`)
                 .then(res => res.json())
                 .then(data => this.heroData = data)
-                .catch(error => console.error(error));
+            .catch(error => console.error(error));  
         },
 
         data() {
             return {
-                heroData: {}
+                heroData: {},
+                lbData: {},
+                showLB: false
             }
         },
 
         components: {
-            // must be lower case
-            herothumbnail: ImportHeroThumbnail
+            theherothumb: HeroThumb,
+            thelightbox: LightBox
+        },
+
+        methods: {
+            loadLightbox(hero) {
+                // set the lightbox data / render it
+                this.lbData = hero;
+
+                // show the lightbox
+                this.showLB = true;
+            }
         }
+
     }).mount('#app')
 })()
